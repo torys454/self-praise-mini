@@ -1,0 +1,775 @@
+/* ===================================
+   Self Praise Mini - CSS
+   温かみのある励まし系デザイン
+=================================== */
+
+/* CSS Variables */
+:root {
+  --primary: #ff9a9e;
+  --primary-dark: #ff6b7a;
+  --secondary: #a18cd1;
+  --accent: #fad0c4;
+  --bg-base: #fef6f0;
+  --bg-evolved: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ffecd2 100%);
+  --text-dark: #4a4a4a;
+  --text-light: #7a7a7a;
+  --white: #ffffff;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --shadow-strong: rgba(0, 0, 0, 0.15);
+  
+  /* Rarity Colors */
+  --rarity-n: #8bc34a;
+  --rarity-r: #2196f3;
+  --rarity-sr: #ff9800;
+}
+
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+  background: var(--bg-base);
+  color: var(--text-dark);
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  transition: background 0.5s ease;
+}
+
+body.evolved {
+  background: var(--bg-evolved);
+}
+
+/* App Container */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ===================================
+   Header
+=================================== */
+.app-header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 10px var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-title {
+  font-size: 1.3rem;
+  color: var(--white);
+  margin-bottom: 0.8rem;
+  text-shadow: 0 2px 4px var(--shadow);
+  letter-spacing: 0.05em;
+}
+
+.tab-nav {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.tab-btn {
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: var(--white);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.tab-btn.active {
+  background: var(--white);
+  color: var(--primary-dark);
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+/* ===================================
+   Main Content
+=================================== */
+.main-content {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.mode-section {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.mode-section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===================================
+   タップモード
+=================================== */
+.tap-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  position: relative;
+}
+
+.praise-display {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--primary-dark);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.praise-text {
+  animation: praiseFloat 1s ease-out forwards;
+  position: absolute;
+  white-space: nowrap;
+}
+
+@keyframes praiseFloat {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-60px) scale(1.2);
+  }
+}
+
+.confetti-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  animation: confettiFall 1s ease-out forwards;
+}
+
+@keyframes confettiFall {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(150px) rotate(720deg);
+  }
+}
+
+.tap-button {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #ffb3b8, var(--primary));
+  border: none;
+  box-shadow: 
+    0 10px 30px var(--shadow-strong),
+    inset 0 -5px 15px rgba(0, 0, 0, 0.1),
+    inset 0 5px 15px rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tap-button:active {
+  transform: scale(0.92);
+  box-shadow: 
+    0 5px 15px var(--shadow),
+    inset 0 -2px 8px rgba(0, 0, 0, 0.15),
+    inset 0 2px 8px rgba(255, 255, 255, 0.2);
+}
+
+.tap-text {
+  font-size: 1rem;
+  color: var(--white);
+  text-shadow: 0 1px 2px var(--shadow);
+}
+
+.tap-highlight {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--white);
+  text-shadow: 0 2px 4px var(--shadow);
+  margin-top: 0.3rem;
+}
+
+.tap-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+.stat-value {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--primary-dark);
+}
+
+.stat-unit {
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+
+.tap-hint {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  opacity: 0.8;
+}
+
+.tap-hint.hidden {
+  display: none;
+}
+
+/* ===================================
+   カードモード
+=================================== */
+.card-container {
+  padding: 1rem 0;
+}
+
+.gacha-button {
+  width: 100%;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gacha-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+}
+
+.gacha-button:active {
+  transform: translateY(0);
+}
+
+.gacha-button:disabled {
+  background: #ccc;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.gacha-icon {
+  font-size: 2rem;
+}
+
+.gacha-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--white);
+}
+
+.gacha-status {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.card-gallery {
+  margin-top: 2rem;
+}
+
+.gallery-title {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--text-dark);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+}
+
+.gallery-card {
+  aspect-ratio: 3/4;
+  background: var(--white);
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px var(--shadow);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-card:hover {
+  transform: scale(1.05);
+}
+
+.gallery-card .card-rarity {
+  padding: 0.3rem;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: var(--white);
+}
+
+.gallery-card .card-rarity.n { background: var(--rarity-n); }
+.gallery-card .card-rarity.r { background: var(--rarity-r); }
+.gallery-card .card-rarity.sr { background: var(--rarity-sr); }
+
+.gallery-card .card-preview {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 0.7rem;
+  color: var(--text-dark);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.gallery-empty {
+  color: var(--text-light);
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.9rem;
+}
+
+.gallery-empty.hidden {
+  display: none;
+}
+
+/* ===================================
+   カード詳細・ガチャ結果
+=================================== */
+.card-full {
+  background: var(--white);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 10px 40px var(--shadow-strong);
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.card-full .card-rarity {
+  padding: 0.8rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--white);
+}
+
+.card-full .card-rarity.n { background: var(--rarity-n); }
+.card-full .card-rarity.r { background: var(--rarity-r); }
+.card-full .card-rarity.sr { background: var(--rarity-sr); }
+
+.card-full .card-title {
+  padding: 1rem 1rem 0.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+  color: var(--text-dark);
+}
+
+.card-full .card-body {
+  padding: 0.5rem 1rem 1rem;
+  font-size: 0.95rem;
+  text-align: center;
+  color: var(--text-light);
+}
+
+.card-full .card-date {
+  padding: 0.8rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  background: #f9f9f9;
+}
+
+.card-full.new-card {
+  animation: cardReveal 0.5s ease-out;
+}
+
+@keyframes cardReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotateY(180deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotateY(0deg);
+  }
+}
+
+.gacha-congrats {
+  text-align: center;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--text-dark);
+}
+
+/* ===================================
+   日報モード
+=================================== */
+.daily-container {
+  padding: 0.5rem 0;
+}
+
+.input-area {
+  margin-bottom: 1.5rem;
+}
+
+#daily-input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 0.8rem;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: none;
+  transition: border-color 0.2s ease;
+}
+
+#daily-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.submit-btn {
+  width: 100%;
+  margin-top: 0.8rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border: none;
+  border-radius: 0.8rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--white);
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 154, 158, 0.4);
+  transition: transform 0.2s ease;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+.reply-area {
+  display: none;
+  background: var(--white);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 15px var(--shadow);
+  animation: fadeIn 0.3s ease;
+}
+
+.reply-area.show {
+  display: block;
+}
+
+.reply-content {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.stamp-container {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.stamp {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+  color: var(--white);
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0.8rem 2rem;
+  border-radius: 0.5rem;
+  transform: rotate(-5deg);
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+  animation: stampBang 0.3s ease-out;
+}
+
+@keyframes stampBang {
+  0% {
+    opacity: 0;
+    transform: rotate(-5deg) scale(2);
+  }
+  60% {
+    transform: rotate(-5deg) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(-5deg) scale(1);
+  }
+}
+
+.daily-history {
+  margin-top: 1rem;
+}
+
+.history-title {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--text-dark);
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.history-item {
+  background: var(--white);
+  border-radius: 0.8rem;
+  padding: 1rem;
+  box-shadow: 0 2px 8px var(--shadow);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.history-item:hover {
+  transform: translateX(5px);
+}
+
+.history-item-date {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-bottom: 0.3rem;
+}
+
+.history-item-preview {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.history-empty {
+  color: var(--text-light);
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.9rem;
+}
+
+.history-empty.hidden {
+  display: none;
+}
+
+/* ===================================
+   モーダル共通
+=================================== */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-content {
+  position: relative;
+  background: var(--bg-base);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  max-width: 340px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  animation: modalSlideUp 0.3s ease;
+}
+
+@keyframes modalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-close {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background: var(--primary);
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--white);
+  cursor: pointer;
+}
+
+/* 履歴詳細モーダル */
+.history-detail .history-date {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.history-detail .history-input-label,
+.history-detail .history-reply-label {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: var(--text-light);
+  margin-bottom: 0.3rem;
+}
+
+.history-detail .history-input {
+  background: #f5f5f5;
+  padding: 0.8rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.history-detail .history-reply {
+  background: var(--white);
+  padding: 0.8rem;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border-left: 3px solid var(--primary);
+}
+
+/* ===================================
+   フッター
+=================================== */
+.app-footer {
+  background: var(--white);
+  padding: 0.8rem 1rem;
+  box-shadow: 0 -2px 10px var(--shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-stats {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+.footer-stats strong {
+  color: var(--primary-dark);
+}
+
+.reset-btn {
+  background: none;
+  border: 1px solid #ddd;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.3rem;
+  font-size: 0.75rem;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reset-btn:hover {
+  background: #f5f5f5;
+  border-color: #ccc;
+}
+
+/* ===================================
+   ユーティリティ
+=================================== */
+.hidden {
+  display: none !important;
+}

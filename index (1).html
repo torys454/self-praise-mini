@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Self Praise Mini - 自分褒めシステム</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- ヘッダー -->
+    <header class="app-header">
+      <h1 class="app-title">✨ Self Praise Mini ✨</h1>
+      <nav class="tab-nav">
+        <button class="tab-btn active" data-tab="tap">タップ</button>
+        <button class="tab-btn" data-tab="card">カード</button>
+        <button class="tab-btn" data-tab="daily">日報</button>
+      </nav>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="main-content">
+      <!-- タップモード -->
+      <section id="tap-mode" class="mode-section active">
+        <div class="tap-container">
+          <div class="praise-display" id="praise-display"></div>
+          <div class="confetti-container" id="confetti-container"></div>
+          <button class="tap-button" id="tap-button">
+            <span class="tap-text">今日の自分</span>
+            <span class="tap-highlight">優勝</span>
+          </button>
+          <div class="tap-stats">
+            <div class="stat-item">
+              <span class="stat-label">今日</span>
+              <span class="stat-value" id="today-tap">0</span>
+              <span class="stat-unit">タップ</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">累計</span>
+              <span class="stat-value" id="total-tap">0</span>
+              <span class="stat-unit">タップ</span>
+            </div>
+          </div>
+          <p class="tap-hint" id="tap-hint">100タップで背景が進化！</p>
+        </div>
+      </section>
+
+      <!-- カードモード -->
+      <section id="card-mode" class="mode-section">
+        <div class="card-container">
+          <button class="gacha-button" id="gacha-button">
+            <span class="gacha-icon">🎁</span>
+            <span class="gacha-text">今日の宝箱を開ける</span>
+          </button>
+          <p class="gacha-status" id="gacha-status"></p>
+          
+          <div class="card-gallery">
+            <h2 class="gallery-title">📚 カード図鑑</h2>
+            <div class="gallery-grid" id="card-gallery"></div>
+            <p class="gallery-empty" id="gallery-empty">まだカードがありません</p>
+          </div>
+        </div>
+
+        <!-- カード詳細モーダル -->
+        <div class="modal" id="card-modal">
+          <div class="modal-overlay"></div>
+          <div class="modal-content card-detail">
+            <div class="card-full" id="card-full">
+              <div class="card-rarity" id="modal-rarity">N</div>
+              <div class="card-title" id="modal-title">カードタイトル</div>
+              <div class="card-body" id="modal-body">カード本文</div>
+              <div class="card-date" id="modal-date">2024-01-01</div>
+            </div>
+            <button class="modal-close" id="card-modal-close">閉じる</button>
+          </div>
+        </div>
+
+        <!-- ガチャ演出モーダル -->
+        <div class="modal" id="gacha-modal">
+          <div class="modal-overlay"></div>
+          <div class="modal-content gacha-result">
+            <p class="gacha-congrats">🎉 カード獲得！</p>
+            <div class="card-full new-card" id="new-card">
+              <div class="card-rarity" id="new-rarity">N</div>
+              <div class="card-title" id="new-title">カードタイトル</div>
+              <div class="card-body" id="new-body">カード本文</div>
+            </div>
+            <button class="modal-close" id="gacha-modal-close">受け取る</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 日報モード -->
+      <section id="daily-mode" class="mode-section">
+        <div class="daily-container">
+          <div class="input-area">
+            <textarea 
+              id="daily-input" 
+              placeholder="今日あったこと、愚痴、不安、なんでも書いてね..."
+              rows="4"
+            ></textarea>
+            <button class="submit-btn" id="submit-daily">送信する</button>
+          </div>
+
+          <div class="reply-area" id="reply-area">
+            <div class="reply-content" id="reply-content"></div>
+            <div class="stamp-container" id="stamp-container">
+              <div class="stamp">承認！</div>
+            </div>
+          </div>
+
+          <div class="daily-history">
+            <h2 class="history-title">📝 日報履歴</h2>
+            <div class="history-list" id="history-list"></div>
+            <p class="history-empty" id="history-empty">まだ日報がありません</p>
+          </div>
+        </div>
+
+        <!-- 履歴詳細モーダル -->
+        <div class="modal" id="history-modal">
+          <div class="modal-overlay"></div>
+          <div class="modal-content history-detail">
+            <p class="history-date" id="history-date">2024-01-01</p>
+            <div class="history-input-label">あなたの入力：</div>
+            <p class="history-input" id="history-input-detail"></p>
+            <div class="history-reply-label">返信：</div>
+            <p class="history-reply" id="history-reply-detail"></p>
+            <button class="modal-close" id="history-modal-close">閉じる</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- フッター -->
+    <footer class="app-footer">
+      <div class="footer-stats">
+        <span>累計: <strong id="footer-total">0</strong>タップ</span>
+        <span>カード: <strong id="footer-cards">0</strong>枚</span>
+      </div>
+      <button class="reset-btn" id="reset-btn">データ初期化</button>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
